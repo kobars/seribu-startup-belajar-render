@@ -1,8 +1,7 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, Fragment } from "react";
 
-export default function App() {
+export default function App(props) {
   const [helloText, setHelloText] = useState("World");
-  const [tableData, setTableData] = useState();
 
   const handleTextBayu = () => {
     setHelloText("Bayu");
@@ -10,22 +9,6 @@ export default function App() {
   const handleTextHasan = () => {
     setHelloText("Hasan");
   };
-
-  useEffect(() => {
-    const getData = async () => {
-      const resp = await fetch("https://ghibliapi.herokuapp.com/films");
-      const res = await resp.json();
-      setTableData(
-        res.map((data) => ({
-          id: data.id,
-          title: data.title,
-          director: data.director,
-          description: data.description,
-        }))
-      );
-    };
-    getData();
-  }, []);
 
   return (
     <div className="container">
@@ -36,7 +19,7 @@ export default function App() {
       <button className="btn" onClick={handleTextHasan}>
         Hasan
       </button>
-      {tableData && tableData.length > 0 && (
+      {props?.tableData?.length > 0 && (
         <Fragment>
           <h1>Movie Table</h1>
           <table>
@@ -48,7 +31,7 @@ export default function App() {
               </tr>
             </thead>
             <tbody>
-              {tableData.map((data) => (
+              {props.tableData.map((data) => (
                 <tr key={data.id}>
                   <td>{data.title}</td>
                   <td>{data.director}</td>
@@ -59,6 +42,71 @@ export default function App() {
           </table>
         </Fragment>
       )}
+      <style jsx>
+        {`
+          .container {
+            background-color: #282c34;
+            color: white;
+            text-align: center;
+            min-height: 100vh;
+            margin-top: -30px;
+            padding: 30px;
+          }
+
+          .btn {
+            border: 1px solid white;
+            background-color: #61dafb;
+            width: 100px;
+            color: white;
+            border-radius: 4px;
+            margin: 10px;
+            padding: 12px;
+            font-weight: bold;
+          }
+
+          .btn:focus {
+            outline: none;
+            border: 2px solid #f89900;
+          }
+
+          .btn:hover {
+            cursor: pointer;
+            background-color: #f89900;
+          }
+
+          table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+          }
+
+          td,
+          th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+          }
+        `}
+      </style>
     </div>
   );
+}
+
+export async function getServerSideProps() {
+  const resp = await fetch("https://ghibliapi.herokuapp.com/films");
+  const res = await resp.json();
+  const tableData = res.map((data) => ({
+    id: data.id,
+    title: data.title,
+    director: data.director,
+    description: data.description,
+  }));
+
+  console.log("tableData", tableData);
+
+  return {
+    props: {
+      tableData,
+    },
+  };
 }
