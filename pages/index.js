@@ -1,47 +1,35 @@
-import React, { useState, Fragment } from "react";
+import React, { Fragment } from "react";
+import Layout from "../components/layout";
+import { getSeoData, getData } from "../utils";
 
-export default function App(props) {
-  const [helloText, setHelloText] = useState("World");
-
-  const handleTextBayu = () => {
-    setHelloText("Bayu");
-  };
-  const handleTextHasan = () => {
-    setHelloText("Hasan");
-  };
-
+export default function App({ tableData, title }) {
   return (
     <div className="container">
-      <h1 className="title">Hello {helloText}</h1>
-      <button className="btn" onClick={handleTextBayu}>
-        Bayu
-      </button>
-      <button className="btn" onClick={handleTextHasan}>
-        Hasan
-      </button>
-      {props?.tableData?.length > 0 && (
-        <Fragment>
-          <h1>Movie Table</h1>
-          <table>
-            <thead>
-              <tr>
-                <th>Movie Title</th>
-                <th>Director</th>
-                <th>Description</th>
-              </tr>
-            </thead>
-            <tbody>
-              {props.tableData.map((data) => (
-                <tr key={data.id}>
-                  <td>{data.title}</td>
-                  <td>{data.director}</td>
-                  <td>{data.description}</td>
+      <Layout seoTitle={title}>
+        {tableData?.length > 0 && (
+          <Fragment>
+            <h1>All Products</h1>
+            <table>
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Price</th>
+                  <th>Description</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </Fragment>
-      )}
+              </thead>
+              <tbody>
+                {tableData.map((data) => (
+                  <tr key={data.id}>
+                    <td>{data.title}</td>
+                    <td>{data.price}</td>
+                    <td>{data.description}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </Fragment>
+        )}
+      </Layout>
       <style jsx>
         {`
           .container {
@@ -92,21 +80,15 @@ export default function App(props) {
   );
 }
 
-export async function getServerSideProps() {
-  const resp = await fetch("https://ghibliapi.herokuapp.com/films");
-  const res = await resp.json();
-  const tableData = res.map((data) => ({
-    id: data.id,
-    title: data.title,
-    director: data.director,
-    description: data.description,
-  }));
-
-  console.log("tableData", tableData);
+export async function getStaticProps() {
+  const tableData = await getData();
+  const title = await getSeoData({ id: 0 });
 
   return {
     props: {
       tableData,
+      title,
     },
+    revalidate: 10, // => mengijinkan proses revalidasi 1x dalam xx seconds
   };
 }
