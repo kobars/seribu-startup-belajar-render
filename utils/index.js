@@ -16,3 +16,31 @@ export const getData = async () => {
   }));
   return tableData;
 };
+
+export const DEFAULT_SEO = {
+  title: "Kemenparekraf",
+  description:
+    "Kementerian Pariwisata dan Ekonomi Kreatif/Badan Pariwisata dan Ekonomi Kreatif Republik Indonesia",
+  // keywords: "kemenparekraf",
+  author: "kemenpar",
+  openGraph: {
+    type: "website",
+    locale: "id_ID",
+    url: "https://www.kemenparekraf.id",
+    title: "Kemenparekraf/Baparekraf",
+    description:
+      "Kementerian Pariwisata dan Ekonomi Kreatif/Badan Pariwisata dan Ekonomi Kreatif Republik Indonesia",
+    image:
+      "https://s3-kemenparekraf.s3.ap-southeast-1.amazonaws.com/c5f5666986b999be278ad2e66f2da724_646d5d9253.png",
+    site_name: "Kemenparekraf",
+  },
+  twitter: {
+    card: "summary_large_image",
+    site: "@Kemenparekraf",
+    title: "Kemenparekraf/Bapakrekraf Website Republik Indonesia",
+    description:
+      "Kementerian Pariwisata dan Ekonomi Kreatif/Badan Pariwisata dan Ekonomi Kreatif Republik Indonesia",
+    image:
+      "https://s3-kemenparekraf.s3.ap-southeast-1.amazonaws.com/c5f5666986b999be278ad2e66f2da724_646d5d9253.png",
+  },
+};
