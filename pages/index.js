@@ -4,7 +4,7 @@ import { getSeoData, getData } from "../utils";
 
 // halaman ini ISR (untuk SEO saja) + Client Data Fetching (untuk get producst)
 
-export default function App({ title }) {
+export default function App({ SEO }) {
   const [tableData, setTableData] = useState([]);
   useEffect(() => {
     const getTableData = async () => {
@@ -16,7 +16,7 @@ export default function App({ title }) {
 
   return (
     <div className="container">
-      <Layout seoTitle={title}>
+      <Layout seoData={SEO}>
         {tableData?.length > 0 && (
           <Fragment>
             <h1>All Products</h1>
@@ -92,11 +92,11 @@ export default function App({ title }) {
 }
 
 export async function getStaticProps() {
-  const title = await getSeoData({ id: 0 });
+  const SEO = await getSeoData({ id: 1 });
 
   return {
     props: {
-      title,
+      SEO,
     },
     revalidate: 10, // => mengijinkan proses revalidasi 1x dalam xx seconds
   };
