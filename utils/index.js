@@ -1,25 +1,25 @@
 export const getSeoData = async ({ id }) => {
-  const resp = await fetch("http://localhost:1337/products");
+  const resp = await fetch('https://be-sekolahbeta.herokuapp.com/products');
   const data = await resp.json();
   // console.log("data", data[id]);
   const { title, description, image } = data[id];
-  const author = "Toko Kobar";
+  const author = 'Toko Kobar';
   const SEO = {
     title,
     description,
     author,
     openGraph: {
-      type: "website",
-      locale: "id_ID",
-      url: "https://toko-kobar.com",
+      type: 'website',
+      locale: 'id_ID',
+      url: 'https://toko-kobar.com',
       title,
       description,
       image: `http://localhost:1337${image.url}`,
-      site_name: "toko-kobar",
+      site_name: 'toko-kobar',
     },
     twitter: {
-      card: "summary_large_image",
-      site: "@toko-kobar",
+      card: 'summary_large_image',
+      site: '@toko-kobar',
       title,
       description,
       image: `http://localhost:1337${image.url}`,
@@ -29,7 +29,7 @@ export const getSeoData = async ({ id }) => {
 };
 
 export const getData = async () => {
-  const resp = await fetch("http://localhost:1337/products");
+  const resp = await fetch('https://be-sekolahbeta.herokuapp.com/products');
   const res = await resp.json();
   const tableData = res.map((data) => ({
     id: data.id,
@@ -41,26 +41,26 @@ export const getData = async () => {
 };
 
 export const DEFAULT_SEO = {
-  title: "Kemenparekraf",
-  description: "Ini default description",
+  title: 'Kemenparekraf',
+  description: 'Ini default description',
   // keywords: "kemenparekraf",
-  author: "kobar",
+  author: 'kobar',
   openGraph: {
-    type: "website",
-    locale: "id_ID",
-    url: "https://www.default.id",
-    title: "Default OG title",
-    description: "Ini default OG description",
+    type: 'website',
+    locale: 'id_ID',
+    url: 'https://www.default.id',
+    title: 'Default OG title',
+    description: 'Ini default OG description',
     image:
-      "https://s3-kemenparekraf.s3.ap-southeast-1.amazonaws.com/c5f5666986b999be278ad2e66f2da724_646d5d9253.png",
-    site_name: "Kemenparekraf",
+      'https://s3-kemenparekraf.s3.ap-southeast-1.amazonaws.com/c5f5666986b999be278ad2e66f2da724_646d5d9253.png',
+    site_name: 'Kemenparekraf',
   },
   twitter: {
-    card: "summary_large_image",
-    site: "@Kemenparekraf",
-    title: "Default Twitter Title",
-    description: "Ini default twitter description",
+    card: 'summary_large_image',
+    site: '@Kemenparekraf',
+    title: 'Default Twitter Title',
+    description: 'Ini default twitter description',
     image:
-      "https://s3-kemenparekraf.s3.ap-southeast-1.amazonaws.com/c5f5666986b999be278ad2e66f2da724_646d5d9253.png",
+      'https://s3-kemenparekraf.s3.ap-southeast-1.amazonaws.com/c5f5666986b999be278ad2e66f2da724_646d5d9253.png',
   },
 };
