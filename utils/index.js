@@ -14,7 +14,7 @@ export const getSeoData = async ({ id }) => {
       url: 'https://toko-kobar.com',
       title,
       description,
-      image: `http://localhost:1337${image.url}`,
+      image: `https://be-sekolahbeta.herokuapp.com${image.url}`,
       site_name: 'toko-kobar',
     },
     twitter: {
@@ -22,7 +22,7 @@ export const getSeoData = async ({ id }) => {
       site: '@toko-kobar',
       title,
       description,
-      image: `http://localhost:1337${image.url}`,
+      image: `https://be-sekolahbeta.herokuapp.com${image.url}`,
     },
   };
   return SEO;
@@ -52,7 +52,7 @@ export const DEFAULT_SEO = {
     title: 'Default OG title',
     description: 'Ini default OG description',
     image:
-      'https://s3-kemenparekraf.s3.ap-southeast-1.amazonaws.com/c5f5666986b999be278ad2e66f2da724_646d5d9253.png',
+      'https://be-sekolahbeta.herokuapp.com/uploads/angular_eed7dc4312.png',
     site_name: 'Kemenparekraf',
   },
   twitter: {
@@ -61,6 +61,6 @@ export const DEFAULT_SEO = {
     title: 'Default Twitter Title',
     description: 'Ini default twitter description',
     image:
-      'https://s3-kemenparekraf.s3.ap-southeast-1.amazonaws.com/c5f5666986b999be278ad2e66f2da724_646d5d9253.png',
+      'https://be-sekolahbeta.herokuapp.com/uploads/angular_eed7dc4312.png',
   },
 };
