@@ -1,19 +1,10 @@
-import React, { useState, Fragment, useEffect } from "react";
+import React, { Fragment } from "react";
 import Layout from "../components/layout";
 import { getSeoData, getData } from "../utils";
 
-export default function App({ title }) {
-  const [tableData, setTableData] = useState([]);
+// FULL SSG
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await getData();
-      console.log("data", data);
-      setTableData(data);
-    };
-    fetchData();
-  }, []);
-
+export default function App({ tableData, title }) {
   return (
     <div className="container">
       <Layout seoTitle={title}>
@@ -45,12 +36,12 @@ export default function App({ title }) {
   );
 }
 
-export async function getServerSideProps(context) {
-  console.log({ context });
-  const id = context.query?.id || 0;
-  const title = await getSeoData({ id });
+export async function getStaticProps() {
+  const tableData = await getData();
+  const title = await getSeoData({ id: 0 });
   return {
     props: {
+      tableData,
       title,
     },
   };

@@ -1,8 +1,19 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import Layout from "../components/layout";
 import { getSeoData, getData } from "../utils";
 
-export default function App({ tableData, title }) {
+// halaman ini ISR (untuk SEO saja) + Client Data Fetching (untuk get producst)
+
+export default function App({ title }) {
+  const [tableData, setTableData] = useState([]);
+  useEffect(() => {
+    const getTableData = async () => {
+      const tableData = await getData();
+      setTableData(tableData);
+    };
+    getTableData();
+  }, []);
+
   return (
     <div className="container">
       <Layout seoTitle={title}>
@@ -81,12 +92,10 @@ export default function App({ tableData, title }) {
 }
 
 export async function getStaticProps() {
-  const tableData = await getData();
   const title = await getSeoData({ id: 0 });
 
   return {
     props: {
-      tableData,
       title,
     },
     revalidate: 10, // => mengijinkan proses revalidasi 1x dalam xx seconds
