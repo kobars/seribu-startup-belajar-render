@@ -1,5 +1,6 @@
 import { Fragment, useState } from "react";
 import Head from "next/head";
+import { useRouter } from "next/router";
 
 const Nav = ({ children, seoData, isNoIndex }) => {
   const [helloText, setHelloText] = useState("World");
@@ -9,6 +10,12 @@ const Nav = ({ children, seoData, isNoIndex }) => {
   const handleTextHasan = () => {
     setHelloText("Arafat");
   };
+
+  const { asPath: canonicalPath } = useRouter();
+  const canonicalUrl = process.env.NEXT_PUBLIC_FRONTEND_URL;
+
+  console.log("canonicalPath", canonicalPath);
+
   return (
     <Fragment>
       <Head>
@@ -42,6 +49,9 @@ const Nav = ({ children, seoData, isNoIndex }) => {
         />
         <meta name="twitter:image" content={seoData?.twitter.image} />
         {/* Twitter Card Info End */}
+
+        {/* canical */}
+        <link rel="canonical" href={`${canonicalUrl}${canonicalPath}`} />
       </Head>
       <h1 className="title">Hello {helloText}</h1>
       <button className="btn" onClick={handleTextBayu}>

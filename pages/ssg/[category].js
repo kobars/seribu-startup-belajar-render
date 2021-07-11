@@ -37,9 +37,7 @@ export default function App({ tableData, SEO }) {
 }
 
 export async function getStaticPaths() {
-  const getCategories = await fetch(
-    "https://be-sekolahbeta.herokuapp.com/categories"
-  );
+  const getCategories = await fetch(`${process.env.BASE_URL}/categories`);
   const categories = await getCategories.json();
   const paths = categories.map((category) => ({
     params: { category: category.slug },
@@ -56,7 +54,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const getProducstByCategory = await fetch(
-    `https://be-sekolahbeta.herokuapp.com/categories/${params.category}`
+    `${process.env.BASE_URL}/categories/${params.category}`
   );
   const allProductsByCategory = await getProducstByCategory.json();
   const tableData = allProductsByCategory?.products;

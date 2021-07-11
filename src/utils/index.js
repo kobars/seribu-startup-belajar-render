@@ -1,5 +1,5 @@
 export const getSeoData = async ({ id }) => {
-  const resp = await fetch("https://be-sekolahbeta.herokuapp.com/products");
+  const resp = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/products`);
   const data = await resp.json();
   const { title, description, image } = data[id];
   const author = "Toko Kobar";
@@ -13,7 +13,7 @@ export const getSeoData = async ({ id }) => {
       url: "https://toko-kobar.com",
       title,
       description,
-      image: `https://be-sekolahbeta.herokuapp.com${image.url}`,
+      image: `${process.env.NEXT_PUBLIC_BASE_URL}${image.url}`,
       site_name: "toko-kobar",
     },
     twitter: {
@@ -21,14 +21,14 @@ export const getSeoData = async ({ id }) => {
       site: "@toko-kobar",
       title,
       description,
-      image: `https://be-sekolahbeta.herokuapp.com${image.url}`,
+      image: `${process.env.NEXT_PUBLIC_BASE_URL}${image.url}`,
     },
   };
   return SEO;
 };
 
 export const getData = async () => {
-  const resp = await fetch("https://be-sekolahbeta.herokuapp.com/products");
+  const resp = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/products`);
   const res = await resp.json();
   const tableData = res.map((data) => ({
     id: data.id,
