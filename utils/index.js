@@ -13,9 +13,24 @@ export const getData = async () => {
     title: data.title,
     price: data.price,
     description: data.description,
+    categories: data.categories[0]
   }));
+  console.log(tableData)
   return tableData;
 };
+
+export const getSeoCategories = async ({ id }) => {
+  const resp = await fetch("http://localhost:1337/categories");
+  const data = await resp.json();
+  const title = data[id]?.name;
+  return title;
+};
+
+export const getCategoryById = async ({id}) => {
+  const resp = await fetch("http://localhost:1337/categories/${id}");
+  const res = await resp.json();
+  return res;
+}
 
 export const DEFAULT_SEO = {
   title: "Kemenparekraf",
