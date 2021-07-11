@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
-import Layout from "../components/layout";
-import { getSeoData, getData } from "../utils";
+import Layout from "../src/components/layout";
+import { getSeoData, getData } from "../src/utils";
 
 // FULL SSG
 

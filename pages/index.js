@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
-import Layout from "../components/layout";
-import { getSeoData, getData } from "../utils";
+import Layout from "../src/components/layout";
+import { getSeoData, getData } from "../src/utils";
 
 // halaman ini ISR (untuk SEO saja) + Client Data Fetching (untuk get producst)
 

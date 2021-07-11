@@ -1,6 +1,6 @@
 import { Fragment } from "react";
-import Layout from "../components/layout";
-import { getSeoData, getData } from "../utils";
+import Layout from "../src/components/layout";
+import { getSeoData, getData } from "../src/utils";
 
 // FULL SSR
 
@@ -37,7 +37,6 @@ export default function App({ tableData, title }) {
 }
 
 export async function getServerSideProps(context) {
-  console.log({ context });
   const tableData = await getData();
   const id = context.query?.id || 0;
   const title = await getSeoData({ id });

@@ -1,7 +1,6 @@
 export const getSeoData = async ({ id }) => {
-  const resp = await fetch("http://localhost:1337/products");
+  const resp = await fetch("https://be-sekolahbeta.herokuapp.com/products");
   const data = await resp.json();
-  // console.log("data", data[id]);
   const { title, description, image } = data[id];
   const author = "Toko Kobar";
   const SEO = {
@@ -14,7 +13,7 @@ export const getSeoData = async ({ id }) => {
       url: "https://toko-kobar.com",
       title,
       description,
-      image: `http://localhost:1337${image.url}`,
+      image: `https://be-sekolahbeta.herokuapp.com${image.url}`,
       site_name: "toko-kobar",
     },
     twitter: {
@@ -22,14 +21,14 @@ export const getSeoData = async ({ id }) => {
       site: "@toko-kobar",
       title,
       description,
-      image: `http://localhost:1337${image.url}`,
+      image: `https://be-sekolahbeta.herokuapp.com${image.url}`,
     },
   };
   return SEO;
 };
 
 export const getData = async () => {
-  const resp = await fetch("http://localhost:1337/products");
+  const resp = await fetch("https://be-sekolahbeta.herokuapp.com/products");
   const res = await resp.json();
   const tableData = res.map((data) => ({
     id: data.id,
