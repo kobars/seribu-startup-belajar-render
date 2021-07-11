@@ -1,11 +1,19 @@
-import React, { Fragment, useEffect, useState } from "react";
-import Layout from "../src/components/layout";
-import { getSeoData, getData } from "../src/utils";
+import React, { useEffect, useState } from "react";
+import Layout from "@/components/layout";
+import { getSeoData, getData } from "@/utils/index";
+import dynamic from "next/dynamic";
+import Table from "@/components/Table";
+
+// above the fold
+
+const TableDynamic = dynamic(() => import("@/components/Table/dynamic"));
+const Map = dynamic(() => import("@/components/Map"), { ssr: false });
 
 // halaman ini ISR (untuk SEO saja) + Client Data Fetching (untuk get producst)
 
 export default function App({ SEO }) {
   const [tableData, setTableData] = useState([]);
+  const [showTable, setShowTable] = useState(false);
   useEffect(() => {
     const getTableData = async () => {
       const tableData = await getData();
@@ -15,31 +23,24 @@ export default function App({ SEO }) {
   }, []);
 
   return (
-    <div className="container">
+    <div className="container-fluid">
       <Layout seoData={SEO}>
-        {tableData?.length > 0 && (
-          <Fragment>
-            <h1>All Products</h1>
-            <table>
-              <thead>
-                <tr>
-                  <th>Title</th>
-                  <th>Price</th>
-                  <th>Description</th>
-                </tr>
-              </thead>
-              <tbody>
-                {tableData.map((data) => (
-                  <tr key={data.id}>
-                    <td>{data.title}</td>
-                    <td>{data.price}</td>
-                    <td>{data.description}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </Fragment>
+        <button className="btn" onClick={() => setShowTable((prev) => !prev)}>
+          Show / Hide
+        </button>
+        {tableData?.length > 0 && <Table tableData={tableData} />}
+        {showTable && tableData?.length > 0 && (
+          <TableDynamic tableData={tableData} />
         )}
+        <div className="container-fluid">
+          <div className="row">
+            <div className="col-6">Kiri</div>
+            <div className="col-6">Kanan</div>
+          </div>
+        </div>
+        <div id="map" style={{ height: "300px" }}>
+          <Map />
+        </div>
       </Layout>
       <style jsx>
         {`

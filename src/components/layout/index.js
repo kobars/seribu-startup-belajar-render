@@ -23,7 +23,7 @@ const Nav = ({ children, seoData, isNoIndex }) => {
         <title>{`${seoData?.title}`}</title>
         {isNoIndex && <meta name="robots" content="noindex" />}
         <meta name="description" content={seoData?.description} />
-        <meta name="author" content={seoData?.author} />
+        {/* <meta name="author" content={seoData?.author} /> */}
         {/* SEO End */}
 
         {/* Open Graph Start  */}

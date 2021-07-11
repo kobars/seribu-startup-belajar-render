@@ -1,12 +1,12 @@
 import React, { Fragment } from "react";
-import Layout from "../../src/components/layout";
-import { DEFAULT_SEO } from "../../src/utils";
+import Layout from "@/components/layout";
+import { DEFAULT_SEO } from "@/utils/index";
 
 // FULL SSG
 
 export default function App({ tableData, SEO }) {
   return (
-    <div className="container">
+    <div className="container-fluid">
       <Layout seoData={SEO}>
         {tableData?.length > 0 && (
           <Fragment>

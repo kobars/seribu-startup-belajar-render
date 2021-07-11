@@ -6,7 +6,7 @@ import { getSeoData, getData } from "../src/utils";
 
 export default function App({ tableData, title }) {
   return (
-    <div className="container">
+    <div className="container-fluid">
       <Layout seoTitle={title}>
         {tableData?.length > 0 && (
           <Fragment>

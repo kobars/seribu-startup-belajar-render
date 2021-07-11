@@ -1,13 +1,14 @@
 import css from "styled-jsx/css";
 
 export default css.global`
-  .container {
+  .container-fluid {
     background-color: #282c34;
     color: white;
     text-align: center;
     min-height: 100vh;
     margin-top: -30px;
     padding: 30px;
+    font-family: "Qahiri", sans-serif;
   }
 
   .btn {
