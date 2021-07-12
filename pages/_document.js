@@ -10,7 +10,7 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          <meta name="author" content="KOBAR SEPTYANUS" />
+          <meta name="author" content="DEVI" />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
@@ -24,7 +24,7 @@ class MyDocument extends Document {
             crossOrigin=""
           />
           <link
-            href="https://fonts.googleapis.com/css2?family=Qahiri&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Arial&display=swap"
             rel="stylesheet"
           />
 

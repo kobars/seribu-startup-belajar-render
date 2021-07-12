@@ -8,7 +8,7 @@ export default css.global`
     min-height: 100vh;
     margin-top: -30px;
     padding: 30px;
-    font-family: "Qahiri", sans-serif;
+    font-family: "Arial", sans-serif;
   }
 
   .btn {

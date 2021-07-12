@@ -39,6 +39,17 @@ export const getData = async () => {
   return tableData;
 };
 
+export const getCategories = async () => {
+  const resp = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/categories`);
+  const res = await resp.json();
+  const tableData = res.map((data) => ({
+    id: data.id,
+    name: data.name,
+    slug: data.slug,
+  }));
+  return tableData;
+};
+
 export const DEFAULT_SEO = {
   title: "Kemenparekraf",
   description: "Ini default description",

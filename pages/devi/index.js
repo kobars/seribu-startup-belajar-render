@@ -1,42 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Layout from "@/components/layout";
-import { getSeoData, getData } from "@/utils/index";
-import dynamic from "next/dynamic";
-import Table from "@/components/Table";
-
-// above the fold
-
-const TableDynamic = dynamic(() => import("@/components/Table/dynamic"));
-
-// halaman ini ISR (untuk SEO saja) + Client Data Fetching (untuk get producst)
+import { DEFAULT_SEO } from "@/utils/index";
 
 export default function App({ SEO }) {
-  const [tableData, setTableData] = useState([]);
-  const [showTable, setShowTable] = useState(false);
-  useEffect(() => {
-    const getTableData = async () => {
-      const tableData = await getData();
-      setTableData(tableData);
-    };
-    getTableData();
-  }, []);
-
   return (
     <div className="container-fluid">
       <Layout seoData={SEO}>
-        <button className="btn" onClick={() => setShowTable((prev) => !prev)}>
-          Show / Hide
-        </button>
-        {tableData?.length > 0 && <Table tableData={tableData} />}
-        {showTable && tableData?.length > 0 && (
-          <TableDynamic tableData={tableData} />
-        )}
-        <div className="container-fluid">
-          <div className="row">
-            <div className="col-6">Kiri</div>
-            <div className="col-6">Kanan</div>
-          </div>
-        </div>
+        <h1 className="mt-5 pt-5">Selamat Datang di Toko Devi</h1>
       </Layout>
       <style jsx>
         {`
@@ -89,8 +59,25 @@ export default function App({ SEO }) {
 }
 
 export async function getStaticProps() {
-  const SEO = await getSeoData({ id: 1 });
-
+  const title = "Home";
+  const author = "Toko Devi";
+  const SEO = {
+    ...DEFAULT_SEO,
+    title,
+    author,
+    openGraph: {
+      type: "website",
+      locale: "id_ID",
+      url: "https://toko-devi.com",
+      title,
+      site_name: "toko-devi",
+    },
+    twitter: {
+      card: "summary_large_image",
+      site: "@toko-devi",
+      title,
+    },
+  };
   return {
     props: {
       SEO,
