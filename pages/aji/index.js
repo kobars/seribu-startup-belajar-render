@@ -1,43 +1,32 @@
 import React, { Fragment, useEffect, useState } from "react";
 import Layout from "../../components/layout";
 import { useRouter } from "next/router";
-import { getData, getSeoData } from "../../utils";
+import Link from "next/link";
+import { getCategories,DEFAULT_SEO } from "../../utils";
 
-export default function App( {title} ) {
-    const Router = useRouter();    
-    const [tableData, setTableData] = useState([]);    
-    useEffect(() => {
-        const getTableData = async () => {
-            const tableData = await getData();
-            setTableData(tableData);
-        };
-        getTableData();        
-    }, []);
-
+export default function App( {SEO,tableData} ) {
+    const Router = useRouter();
+    // console.log("Router",Router);
     return (
         <div className="container">
             <h1>Hallo</h1>            
-          <Layout seoTitle={title}>
+          <Layout seoData={SEO}>
             {tableData?.length > 0 && (
               <Fragment>
-                <h1>All Products</h1>
+                <h1>All Categories</h1>
                 <table>
                   <thead>
                     <tr>
-                      <th>Title</th>
-                      <th>Price</th>
-                      <th>Description</th>                                                                
+                      <th>Name</th>                                                             
                     </tr>
                   </thead>
                   <tbody>                    
                     {tableData.map((data) => (                                                                
-                      <Link key={data.categories.id} href={`/aji/${data.categories.id}`} passHref>
-                        <tr key={data.id}>
-                          <td>{data.title}</td>
-                          <td>{data.price}</td>
-                          <td>{data.description}</td>                                                  
-                        </tr>
-                      </Link>
+                      <tr key={data.id}>
+                        <Link key={data.slugy} href={`/aji/${data.slug}`} passHref>
+                          <td>{data.name}</td>
+                        </Link>
+                      </tr>
                     ))}
                   </tbody>
                 </table>
@@ -95,11 +84,31 @@ export default function App( {title} ) {
 }
 
 export async function getStaticProps() {
-    const title = await getSeoData({ id: 0 });
-    
+    const tableData = await getCategories()
+    const title = "categories"
+    const author = "Toko Kobar";
+    const SEO = {
+      ...DEFAULT_SEO,
+      title,
+      author,
+      openGraph: {
+        type: "website",
+        locale: "id_ID",
+        url: "https://toko-kobar.com",
+        title,
+        site_name: "toko-kobar",
+      },
+      twitter: {
+        card: "summary_large_image",
+        site: "@toko-kobar",
+        title,
+      },
+    };
+
     return {
       props: {
-        title,
+        SEO,
+        tableData
       },
       revalidate: 10, // => mengijinkan proses revalidasi 1x dalam xx seconds
     };
