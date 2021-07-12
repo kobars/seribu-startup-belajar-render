@@ -37,7 +37,9 @@ export default function App({ tableData, SEO }) {
 }
 
 export async function getStaticPaths() {
-  const getCategories = await fetch("http://localhost:1337/categories");
+  // const getCategories = await fetch("http://localhost:1337/categories");
+  const getCategories = await fetch(`${process.env.BASE_URL}/categories`);
+  `${process.env.NEXT_PUBLIC_BASE_URL}/products`
   const categories = await getCategories.json();
   const paths = categories.map((category) => ({
     params: { category: category.slug },
@@ -54,7 +56,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const getProducstByCategory = await fetch(
-    `http://localhost:1337/categories/${params.category}`
+    `${process.env.BASE_URL}/categories/${params.category}`
   );
   const allProductsByCategory = await getProducstByCategory.json();
   const tableData = allProductsByCategory?.products;

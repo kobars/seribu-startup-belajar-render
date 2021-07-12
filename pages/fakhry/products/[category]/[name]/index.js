@@ -37,7 +37,7 @@ export default function App({ tableData, SEO }) {
 }
 
 export async function getStaticPaths() {
-  const getProducts = await fetch("http://localhost:1337/products");
+  const getProducts = await fetch(`${process.env.BASE_URL}/products`);
   const products = await getProducts.json();
   const paths = products.map((product) => ({
     params: { category: product.categories[0].slug ,name: product.slug },
@@ -53,7 +53,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const getProducstByCategory = await fetch(
-    `http://localhost:1337/products/${params.name}`
+    `${process.env.BASE_URL}/products/${params.name}`
   );
   console.log("param",params);
   const allProductsByCategory = await getProducstByCategory.json();
