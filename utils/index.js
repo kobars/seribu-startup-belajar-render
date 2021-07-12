@@ -1,12 +1,12 @@
 export const getSeoData = async ({ id }) => {
-  const resp = await fetch("http://localhost:1337/products");
+  const resp = await fetch("http://be-sekolahbeta.herokuapp.com/products");
   const data = await resp.json();
   const title = data[id]?.title;
   return title;
 };
 
 export const getData = async () => {
-  const resp = await fetch("http://localhost:1337/products");
+  const resp = await fetch("http://be-sekolahbeta.herokuapp.com/products");
   const res = await resp.json();
   const tableData = res.map((data) => ({
     id: data.id,
@@ -19,17 +19,15 @@ export const getData = async () => {
   return tableData;
 };
 
-export const getSeoCategories = async ({ id }) => {
-  const resp = await fetch("http://localhost:1337/categories");
-  const data = await resp.json();
-  const title = data[id]?.name;
-  return title;
-};
-
-export const getCategoryById = async ({id}) => {
-  const resp = await fetch("http://localhost:1337/categories/${id}");
+export const getCategories = async () => {
+  const resp = await fetch("http://be-sekolahbeta.herokuapp.com/categories");
   const res = await resp.json();
-  return res;
+  const tableData = res.map((data) => ({
+    id: data.id,
+    name: data.name,
+    slug: data.slug
+  }));
+  return tableData
 }
 
 export const DEFAULT_SEO = {
