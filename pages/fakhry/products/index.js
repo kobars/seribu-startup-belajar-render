@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
-import Layout from "../components/layout";
-import { getSeoData, getData } from "../utils";
+import Layout from "../../../components/layout";
+import { DEFAULT_SEO, getData } from "../../../utils";
 
 // halaman ini ISR (untuk SEO saja) + Client Data Fetching (untuk get producst)
 
@@ -92,8 +92,26 @@ export default function App({ SEO }) {
 }
 
 export async function getStaticProps() {
-  const SEO = await getSeoData({ id: 1 });
-
+    const title = "List Products";
+    // const title = allProductsByCategory.name;
+    const author = "Toko Kobar";
+    const SEO = {
+      ...DEFAULT_SEO,
+      title,
+      author,
+      openGraph: {
+        type: "website",
+        locale: "id_ID",
+        url: "https://toko-kobar.com",
+        title,
+        site_name: "toko-kobar",
+      },
+      twitter: {
+        card: "summary_large_image",
+        site: "@toko-kobar",
+        title,
+      },
+    };
   return {
     props: {
       SEO,

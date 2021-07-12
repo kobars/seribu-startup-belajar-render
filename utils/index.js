@@ -1,8 +1,31 @@
 export const getSeoData = async ({ id }) => {
   const resp = await fetch("http://localhost:1337/products");
   const data = await resp.json();
-  const title = data[id]?.title;
-  return title;
+  // console.log("data", data[id]);
+  const { title, description, image } = data[id];
+  const author = "Toko Kobar";
+  const SEO = {
+    title,
+    description,
+    author,
+    openGraph: {
+      type: "website",
+      locale: "id_ID",
+      url: "https://toko-kobar.com",
+      title,
+      description,
+      image: `http://localhost:1337${image.url}`,
+      site_name: "toko-kobar",
+    },
+    twitter: {
+      card: "summary_large_image",
+      site: "@toko-kobar",
+      title,
+      description,
+      image: `http://localhost:1337${image.url}`,
+    },
+  };
+  return SEO;
 };
 
 export const getData = async () => {
@@ -19,17 +42,15 @@ export const getData = async () => {
 
 export const DEFAULT_SEO = {
   title: "Kemenparekraf",
-  description:
-    "Kementerian Pariwisata dan Ekonomi Kreatif/Badan Pariwisata dan Ekonomi Kreatif Republik Indonesia",
+  description: "Ini default description",
   // keywords: "kemenparekraf",
-  author: "kemenpar",
+  author: "kobar",
   openGraph: {
     type: "website",
     locale: "id_ID",
-    url: "https://www.kemenparekraf.id",
-    title: "Kemenparekraf/Baparekraf",
-    description:
-      "Kementerian Pariwisata dan Ekonomi Kreatif/Badan Pariwisata dan Ekonomi Kreatif Republik Indonesia",
+    url: "https://www.default.id",
+    title: "Default OG title",
+    description: "Ini default OG description",
     image:
       "https://s3-kemenparekraf.s3.ap-southeast-1.amazonaws.com/c5f5666986b999be278ad2e66f2da724_646d5d9253.png",
     site_name: "Kemenparekraf",
@@ -37,9 +58,8 @@ export const DEFAULT_SEO = {
   twitter: {
     card: "summary_large_image",
     site: "@Kemenparekraf",
-    title: "Kemenparekraf/Bapakrekraf Website Republik Indonesia",
-    description:
-      "Kementerian Pariwisata dan Ekonomi Kreatif/Badan Pariwisata dan Ekonomi Kreatif Republik Indonesia",
+    title: "Default Twitter Title",
+    description: "Ini default twitter description",
     image:
       "https://s3-kemenparekraf.s3.ap-southeast-1.amazonaws.com/c5f5666986b999be278ad2e66f2da724_646d5d9253.png",
   },

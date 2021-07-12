@@ -1,23 +1,24 @@
 import React, { Fragment, useEffect, useState } from "react";
-import Layout from "../components/layout";
-import { getSeoData, getData } from "../utils";
+import Layout from "../../components/layout";
+import { DEFAULT_SEO } from "../../utils";
 
 // halaman ini ISR (untuk SEO saja) + Client Data Fetching (untuk get producst)
 
 export default function App({ SEO }) {
-  const [tableData, setTableData] = useState([]);
-  useEffect(() => {
-    const getTableData = async () => {
-      const tableData = await getData();
-      setTableData(tableData);
-    };
-    getTableData();
-  }, []);
+//   const [tableData, setTableData] = useState([]);
+//   useEffect(() => {
+//     const getTableData = async () => {
+//       const tableData = await getData();
+//       setTableData(tableData);
+//     };
+//     getTableData();
+//   }, []);
 
   return (
     <div className="container">
       <Layout seoData={SEO}>
-        {tableData?.length > 0 && (
+      <h2>Landing Page</h2>
+        {/* {tableData?.length > 0 && (
           <Fragment>
             <h1>All Products</h1>
             <table>
@@ -39,7 +40,7 @@ export default function App({ SEO }) {
               </tbody>
             </table>
           </Fragment>
-        )}
+        )} */}
       </Layout>
       <style jsx>
         {`
@@ -92,8 +93,27 @@ export default function App({ SEO }) {
 }
 
 export async function getStaticProps() {
-  const SEO = await getSeoData({ id: 1 });
-
+//   const title = await getSeoData({ id: 0 });
+    const title = "Halaman Utama";
+    // const title = allProductsByCategory.name;
+    const author = "Toko Kobar";
+    const SEO = {
+      ...DEFAULT_SEO,
+      title,
+      author,
+      openGraph: {
+        type: "website",
+        locale: "id_ID",
+        url: "https://toko-kobar.com",
+        title,
+        site_name: "toko-kobar",
+      },
+      twitter: {
+        card: "summary_large_image",
+        site: "@toko-kobar",
+        title,
+      },
+    };
   return {
     props: {
       SEO,
