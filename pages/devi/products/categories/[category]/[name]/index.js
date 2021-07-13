@@ -10,7 +10,7 @@ export default function App({ tableData, SEO }) {
       <Layout seoData={SEO}>
         {tableData?.length > 0 && (
           <Fragment>
-            <h1>All Products</h1>
+            <h1>{`Detail ${SEO.title}`}</h1>
             <table>
               <thead>
                 <tr>
@@ -37,15 +37,14 @@ export default function App({ tableData, SEO }) {
 }
 
 export async function getStaticPaths() {
-  const getCategories = await fetch(`${process.env.BASE_URL}/categories`);
-  const categories = await getCategories.json();
-  const paths = categories.map((category) => ({
-    params: { category: category.slug },
+  const getProducts = await fetch(`${process.env.BASE_URL}/products`);
+  const products = await getProducts.json();
+  const paths = products.map((product) => ({
+    params: { category: product.categories[0].slug, name: product.slug },
   }));
   return {
     // paths: [
-    //   { params: { category: "back" } },
-    //   { params: { category: "front" } },
+    //   { params: { category: "database", name:"gatsby" } },
     // ],
     paths,
     fallback: false,
@@ -54,13 +53,16 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const getProducstByCategory = await fetch(
-    `${process.env.BASE_URL}/categories/${params.category}`
+    `${process.env.BASE_URL}/products/${params.name}`
   );
+  console.log("param", params);
   const allProductsByCategory = await getProducstByCategory.json();
-  const tableData = allProductsByCategory?.products;
+  const tableData = [allProductsByCategory];
+  console.log("tabledata", tableData);
+  // const tableData = [];
 
-  const title = allProductsByCategory.name;
-  const author = "Toko Kobar";
+  const title = allProductsByCategory.title;
+  const author = "Toko Devi";
   const SEO = {
     ...DEFAULT_SEO,
     title,
@@ -68,13 +70,13 @@ export async function getStaticProps({ params }) {
     openGraph: {
       type: "website",
       locale: "id_ID",
-      url: "https://toko-kobar.com",
+      url: "https://toko-devi.com",
       title,
-      site_name: "toko-kobar",
+      site_name: "toko-devi",
     },
     twitter: {
       card: "summary_large_image",
-      site: "@toko-kobar",
+      site: "@toko-devi",
       title,
     },
   };

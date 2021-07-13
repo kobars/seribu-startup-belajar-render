@@ -1,15 +1,16 @@
 import { Fragment, useState } from "react";
 import Head from "next/head";
+import Link from "next/link";
 import { useRouter } from "next/router";
 
 const Nav = ({ children, seoData, isNoIndex }) => {
-  const [helloText, setHelloText] = useState("World");
-  const handleTextBayu = () => {
-    setHelloText("Kobar");
-  };
-  const handleTextHasan = () => {
-    setHelloText("Arafat");
-  };
+  // const [helloText, setHelloText] = useState("World");
+  // const handleTextBayu = () => {
+  //   setHelloText("Kobar");
+  // };
+  // const handleTextHasan = () => {
+  //   setHelloText("Arafat");
+  // };
 
   const { asPath: canonicalPath } = useRouter();
   const canonicalUrl = process.env.NEXT_PUBLIC_FRONTEND_URL;
@@ -23,7 +24,7 @@ const Nav = ({ children, seoData, isNoIndex }) => {
         <title>{`${seoData?.title}`}</title>
         {isNoIndex && <meta name="robots" content="noindex" />}
         <meta name="description" content={seoData?.description} />
-        <meta name="author" content={seoData?.author} />
+        {/* <meta name="author" content={seoData?.author} /> */}
         {/* SEO End */}
 
         {/* Open Graph Start  */}
@@ -53,14 +54,29 @@ const Nav = ({ children, seoData, isNoIndex }) => {
         {/* canical */}
         <link rel="canonical" href={`${canonicalUrl}${canonicalPath}`} />
       </Head>
-      <h1 className="title">Hello {helloText}</h1>
+
+      {/* <h1 className="title">Hello {helloText}</h1>
       <button className="btn" onClick={handleTextBayu}>
         Kobar
       </button>
       <button className="btn" onClick={handleTextHasan}>
         Arafat
-      </button>
+      </button> */}
+      <div className="mt-5 py-5 text-center">
+        <h3 className="d-inline p-3">
+          <Link href="/devi/products" passHref>
+            Products
+          </Link>
+        </h3>
+        <h3 className="d-inline p-3">
+          <Link href="/devi/products/categories" passHref>
+            Categories
+          </Link>
+        </h3>
+      </div>
+
       {children}
+
       <style jsx>
         {`
           .container {

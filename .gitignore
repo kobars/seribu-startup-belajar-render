@@ -8,6 +8,11 @@
 # environment variables
 .env
 
+# service worker & workbox
+sw.js
+sw.js.map
+workbox-*
+
 # testing
 /coverage
 

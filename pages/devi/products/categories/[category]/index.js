@@ -1,4 +1,5 @@
 import React, { Fragment } from "react";
+import Link from "next/link";
 import Layout from "@/components/layout";
 import { DEFAULT_SEO } from "@/utils/index";
 
@@ -10,7 +11,7 @@ export default function App({ tableData, SEO }) {
       <Layout seoData={SEO}>
         {tableData?.length > 0 && (
           <Fragment>
-            <h1>All Products</h1>
+            <h1>{`List ${SEO.title} Category`}</h1>
             <table>
               <thead>
                 <tr>
@@ -22,7 +23,15 @@ export default function App({ tableData, SEO }) {
               <tbody>
                 {tableData.map((data) => (
                   <tr key={data.id}>
-                    <td>{data.title}</td>
+                    <td>
+                      <Link
+                        key={data.slug}
+                        href={`/devi/products/categories/${SEO.slug}/${data.slug}`}
+                        passHref
+                      >
+                        {data.title}
+                      </Link>
+                    </td>
                     <td>{data.price}</td>
                     <td>{data.description}</td>
                   </tr>
@@ -60,22 +69,26 @@ export async function getStaticProps({ params }) {
   const tableData = allProductsByCategory?.products;
 
   const title = allProductsByCategory.name;
-  const author = "Toko Kobar";
+  const slug = allProductsByCategory.slug;
+  const author = "Toko Devi";
   const SEO = {
     ...DEFAULT_SEO,
     title,
     author,
+    slug,
     openGraph: {
       type: "website",
       locale: "id_ID",
-      url: "https://toko-kobar.com",
+      url: "https://toko-devi.com",
       title,
-      site_name: "toko-kobar",
+      slug,
+      site_name: "toko-devi",
     },
     twitter: {
       card: "summary_large_image",
-      site: "@toko-kobar",
+      site: "@toko-devi",
       title,
+      slug,
     },
   };
 

@@ -1,18 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import Layout from "@/components/layout";
-import { getSeoData, getData } from "@/utils/index";
-import dynamic from "next/dynamic";
-import Table from "@/components/Table";
-
-// above the fold
-
-const TableDynamic = dynamic(() => import("@/components/Table/dynamic"));
+import { DEFAULT_SEO, getData } from "@/utils/index";
 
 // halaman ini ISR (untuk SEO saja) + Client Data Fetching (untuk get producst)
 
 export default function App({ SEO }) {
   const [tableData, setTableData] = useState([]);
-  const [showTable, setShowTable] = useState(false);
   useEffect(() => {
     const getTableData = async () => {
       const tableData = await getData();
@@ -24,19 +17,29 @@ export default function App({ SEO }) {
   return (
     <div className="container-fluid">
       <Layout seoData={SEO}>
-        <button className="btn" onClick={() => setShowTable((prev) => !prev)}>
-          Show / Hide
-        </button>
-        {tableData?.length > 0 && <Table tableData={tableData} />}
-        {showTable && tableData?.length > 0 && (
-          <TableDynamic tableData={tableData} />
+        {tableData?.length > 0 && (
+          <Fragment>
+            <h1>All Products</h1>
+            <table>
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Price</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                {tableData.map((data) => (
+                  <tr key={data.id}>
+                    <td>{data.title}</td>
+                    <td>{data.price}</td>
+                    <td>{data.description}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </Fragment>
         )}
-        <div className="container-fluid">
-          <div className="row">
-            <div className="col-6">Kiri</div>
-            <div className="col-6">Kanan</div>
-          </div>
-        </div>
       </Layout>
       <style jsx>
         {`
@@ -48,7 +51,6 @@ export default function App({ SEO }) {
             margin-top: -30px;
             padding: 30px;
           }
-
           .btn {
             border: 1px solid white;
             background-color: #61dafb;
@@ -59,23 +61,19 @@ export default function App({ SEO }) {
             padding: 12px;
             font-weight: bold;
           }
-
           .btn:focus {
             outline: none;
             border: 2px solid #f89900;
           }
-
           .btn:hover {
             cursor: pointer;
             background-color: #f89900;
           }
-
           table {
             font-family: arial, sans-serif;
             border-collapse: collapse;
             width: 100%;
           }
-
           td,
           th {
             border: 1px solid #dddddd;
@@ -89,7 +87,26 @@ export default function App({ SEO }) {
 }
 
 export async function getStaticProps() {
-  const SEO = await getSeoData({ id: 1 });
+  // const SEO = await getSeoData({ id: 1 });
+  const title = "Products";
+  const author = "Toko Devi";
+  const SEO = {
+    ...DEFAULT_SEO,
+    title,
+    author,
+    openGraph: {
+      type: "website",
+      locale: "id_ID",
+      url: "https://toko-devi.com",
+      title,
+      site_name: "toko-devi",
+    },
+    twitter: {
+      card: "summary_large_image",
+      site: "@toko-devi",
+      title,
+    },
+  };
 
   return {
     props: {
