@@ -62,7 +62,7 @@ export async function getStaticProps({ params }) {
   // const tableData = [];
 
   const title = allProductsByCategory.title;
-  const author = "Toko Kobar";
+  const author = "Toko Devi";
   const SEO = {
     ...DEFAULT_SEO,
     title,
@@ -70,13 +70,13 @@ export async function getStaticProps({ params }) {
     openGraph: {
       type: "website",
       locale: "id_ID",
-      url: "https://toko-kobar.com",
+      url: "https://toko-devi.com",
       title,
-      site_name: "toko-kobar",
+      site_name: "toko-devi",
     },
     twitter: {
       card: "summary_large_image",
-      site: "@toko-kobar",
+      site: "@toko-devi",
       title,
     },
   };

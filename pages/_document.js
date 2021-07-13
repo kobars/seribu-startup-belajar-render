@@ -23,10 +23,10 @@ class MyDocument extends Document {
             href="https://fonts.gstatic.com"
             crossOrigin=""
           />
-          <link
+          {/* <link
             href="https://fonts.googleapis.com/css2?family=Arial&display=swap"
             rel="stylesheet"
-          />
+          /> */}
 
           {/* pwa */}
           <link rel="manifest" href="/manifest.json" />
