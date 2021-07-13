@@ -1,5 +1,6 @@
 import { Fragment, useState } from "react";
 import Head from "next/head";
+import Link from "next/link";
 
 const Nav = ({ children, seoTitle }) => {
   const [helloText, setHelloText] = useState("World");
@@ -21,6 +22,27 @@ const Nav = ({ children, seoTitle }) => {
       <button className="btn" onClick={handleTextHasan}>
         Arafat
       </button>
+      <div>
+        <Fragment>
+          <div className="row">
+            <div className="col">
+              <Link key="beranda" href="../aji">
+                <p>Beranda</p>
+              </Link>
+            </div>
+            <div className="col">
+              <Link key="products" href="../aji/products">
+                <p>Products</p>
+              </Link>
+            </div>            
+            <div className="col">
+              <Link key="categories" href="../aji/category">
+                <p>Categories</p>
+              </Link>
+            </div> 
+          </div>          
+        </Fragment>        
+      </div>
       {children}
       <style jsx>
         {`

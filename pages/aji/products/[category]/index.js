@@ -1,30 +1,39 @@
 import React, { Fragment } from "react";
-import Layout from "../../components/layout";
-import { DEFAULT_SEO } from "../../utils";
+import { useRouter } from "next/router";
+import Link from "next/link"
+import Layout from "../../../../components/layout";
+import { DEFAULT_SEO } from "../../../../utils";
 
 // FULL SSG
 
 export default function App({ tableData, SEO }) {
+  const { query } = useRouter();
+  const category = query?.category;
   return (
     <div className="container">
       <Layout seoData={SEO}>
         {tableData?.length > 0 && (
           <Fragment>
-            <h1>All Products</h1>
+            
+            <h1>Products with Category {category}</h1>
             <table>
               <thead>
                 <tr>
                   <th>Title</th>
                   <th>Price</th>
                   <th>Description</th>
+                  <th>Action</th>
                 </tr>
               </thead>
               <tbody>
-                {tableData.map((data) => (
-                  <tr key={data.id}>
-                    <td>{data.title}</td>
-                    <td>{data.price}</td>
-                    <td>{data.description}</td>
+                {tableData.map((product) => (
+                  <tr key={product.id}>
+                    <td>{product.title}</td>
+                    <td>{product.price}</td>
+                    <td>{product.description}</td>                    
+                    <Link key={category} href={`${category}/${product.slug}`} passHref>
+                      <td>detail</td>
+                    </Link>
                   </tr>
                 ))}
               </tbody>

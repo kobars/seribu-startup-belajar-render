@@ -13,11 +13,17 @@ export const getData = async () => {
     title: data.title,
     price: data.price,
     description: data.description,
-    categories: data.categories[0]
+    category: data.categories[0].slug
   }));
   console.log(tableData)
   return tableData;
 };
+
+// export const getProductBySlug = async ({slug}) => {
+//   const resp = await fetch(`http://be-sekolahbeta.herokuapp.com/products/${slug}`);
+//   const product = await resp.json();  
+//   return product;
+// }
 
 export const getCategories = async () => {
   const resp = await fetch("http://be-sekolahbeta.herokuapp.com/categories");
