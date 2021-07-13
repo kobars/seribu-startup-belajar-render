@@ -1,30 +1,29 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Layout from "../../../../../components/layout";
-// import { getProductBySlug } from "../../../../../utils";
 
-// FULL SSG
-
-export default function App() {
+export default function Slug() {
   const { query } = useRouter();  
-  const slug = query?.slug;
-  console.log("slug",slug)
+  const slug = query?.slug;  
   const [product, setProduct] = useState([]);
   useEffect(() => {
-      const getProduct = async () => {        
-        const getProduct = await fetch(`http://be-sekolahbeta.herokuapp.com/products/${slug}`);
-        const productBySlug = await getProduct.json();          
-        console.log("productBySlug",productBySlug)      
-        setProduct(productBySlug);
-    };
-    getProduct();
-  }, []);  
+    const getProduct = async () => {              
+      const getProduct = await fetch(`http://be-sekolahbeta.herokuapp.com/products/${slug}`);
+      const productBySlug = await getProduct.json();                    
+      setProduct(productBySlug);
+    };      
+    if (slug) {
+      getProduct();
+    }
+  }, [slug]);
+  console.log("ini product",product)   
   return (
     <div className="container">
       <Layout>
-        {product?.length > 0 && (
+        {product && (
           <Fragment>            
-            <h1>Products with Category</h1>
+            <h1>Detail Product</h1>
+            {console.log("ini product 2",product)}
             <table>
               <thead>
                 <tr>
@@ -34,13 +33,11 @@ export default function App() {
                 </tr>
               </thead>
               <tbody>
-                {product.map((data) => (
-                  <tr key={data.id}>
-                    <td>{data.title}</td>
-                    <td>{data.price}</td>
-                    <td>{data.description}</td>
+                  <tr key={product.id}>
+                    <td>{product.title}</td>
+                    <td>{product.price}</td>
+                    <td>{product.description}</td>                                                                               
                   </tr>
-                ))}
               </tbody>
             </table>
           </Fragment>

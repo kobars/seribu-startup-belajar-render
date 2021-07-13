@@ -26,17 +26,17 @@ const Nav = ({ children, seoTitle }) => {
         <Fragment>
           <div className="row">
             <div className="col">
-              <Link key="beranda" href="../aji">
+              <Link key="beranda" href="/aji">
                 <p>Beranda</p>
               </Link>
             </div>
             <div className="col">
-              <Link key="products" href="../aji/products">
+              <Link key="products" href="/aji/products">
                 <p>Products</p>
               </Link>
             </div>            
             <div className="col">
-              <Link key="categories" href="../aji/category">
+              <Link key="categories" href="/aji/category">
                 <p>Categories</p>
               </Link>
             </div> 

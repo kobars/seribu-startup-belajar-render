@@ -14,8 +14,7 @@ export const getData = async () => {
     price: data.price,
     description: data.description,
     category: data.categories[0].slug
-  }));
-  console.log(tableData)
+  }));  
   return tableData;
 };
 
